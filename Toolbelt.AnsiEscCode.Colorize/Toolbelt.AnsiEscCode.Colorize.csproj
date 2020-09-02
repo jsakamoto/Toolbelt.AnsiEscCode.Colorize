@@ -1,0 +1,37 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>Toolbelt.AnsiEscCode</RootNamespace>
+    <Authors>J.Sakamoto</Authors>
+    <Copyright>Copyright © 2020 J.Sakamoto, The Unlicense</Copyright>
+    <PackageLicenseExpression>Unlicense</PackageLicenseExpression>
+    <Description>Very simple and small .NET library to just only append ANSI color escape sequence to a string.</Description>
+    <PackageProjectUrl>https://github.com/jsakamoto/Toolbelt.AnsiEscCode.Colorize</PackageProjectUrl>
+    <PackageTags>ansi color,colorful</PackageTags>
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
+    <NoWarn>$(NoWarn);1591</NoWarn>
+    <PackageOutputPath>..\_dist\</PackageOutputPath>
+    <GeneratePackageOnBuild Condition=" '$(Configuration)' == 'Release' ">true</GeneratePackageOnBuild>
+    <PackageReleaseNotes>(Please write the package release notes in "../RELEASE-NOTES.txt".)</PackageReleaseNotes>
+    <PackageIcon>nupkg-icon.png</PackageIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\.assets\nupkg-icon.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+      <Visible>false</Visible>
+    </None>
+  </ItemGroup>
+
+  <Target Name="PreparePackageReleaseNoteFromFile" BeforeTargets="GenerateNuspec">
+    <ReadLinesFromFile File="../RELEASE-NOTES.txt" >
+      <Output TaskParameter="Lines" ItemName="ReleaseNoteLines"/>
+    </ReadLinesFromFile>
+    <PropertyGroup>
+      <PackageReleaseNotes>@(ReleaseNoteLines, '%0a')</PackageReleaseNotes>
+    </PropertyGroup>
+  </Target>
+
+</Project>
